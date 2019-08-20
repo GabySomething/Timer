@@ -14,6 +14,7 @@ public class Main {
 		private long pT = 0;
 		private long pause_time = 0;
 		private String timer = "";
+		private String timerText = "";
 		private int mins = 0;
 		private long ms = 0;
 		private int s = 0;
@@ -21,7 +22,18 @@ public class Main {
 		private boolean pause = true;
 		private Font bigFont = new Font("Arial", Font.BOLD, 30);
 		private Font smallFont = new Font("Arial", Font.BOLD, 14);
-
+		private JButton pause_b;
+		private JButton reset_b;
+		
+		/**
+		 * Constructor made to grab pause and reset buttons to place under text
+		 * 
+		 * @author Jose Tua Colon
+		 */
+		public Comp(JButton pause, JButton reset) {
+			this.pause_b = pause;
+			this.reset_b = reset;
+		}
 		/**
 		 * Resets the timer
 		 * 
@@ -58,7 +70,7 @@ public class Main {
 		 */
 		public void pause(JButton button) {
 			if (!pause) {
-				button.setText("Run");
+				button.setText("Continue");
 				pause = true;
 				pT = System.currentTimeMillis();
 			} else {
@@ -88,6 +100,12 @@ public class Main {
 
 		}
 
+		/**
+		 * Draws content on the JFrame
+		 * 
+		 * @author Gabriel Soto Ramos
+		 * @author Jose Tua Colon
+		 */
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -107,10 +125,17 @@ public class Main {
 			String hours = fillWithZeroes(hrs, 3);
 
 			g.setFont(bigFont);
+			
 			timer = hours + " : " + minutes + " : " + secs + " : " + miliseconds;
+			timerText = "Timer Time";
 			double xc = g.getFontMetrics().stringWidth(timer) / 2.0;
 			double yc = g.getFontMetrics().getHeight() / 2.0;
 			g.drawString(timer, (int) (this.getWidth() / 2.0 - xc), (int) (this.getHeight() / 2.0 + yc));
+			g.drawString(timerText, (int) (this.getWidth() / 2.0 - xc + 35), (int) (this.getHeight() / 2.0 - yc - 5));
+			pause_b.setBounds((int) (this.getWidth() / 2.0 - xc) - 20, (int) (this.getHeight()/ 2.0 + yc) + 30, 128, 64);
+			reset_b.setBounds((int) (this.getWidth() / 2.0 - xc) + 200, (int) (this.getHeight()/ 2.0 + yc) + 30, 128, 64);
+			
+			g.drawRect((int) (this.getWidth() / 2.0 - xc) - 5, (int) (this.getHeight() / 2.0 - yc), 260, 50);
 		}
 
 	}
@@ -120,7 +145,7 @@ public class Main {
 		JFrame frame = new JFrame();
 		JButton pause_button = new JButton();
 		JButton reset_button = new JButton();
-		JComponent comp = new Comp();
+		JComponent comp = new Comp(pause_button, reset_button);
 
 		pause_button.addActionListener(new AbstractAction() {
 			private static final long serialVersionUID = 1L;
@@ -143,7 +168,7 @@ public class Main {
 		});
 		pause_button.setBounds(200, 200, 128, 64);
 		reset_button.setBounds(400, 200, 128, 64);
-		pause_button.setText("Run");
+		pause_button.setText("Start");
 		reset_button.setText("Reset");
 		frame.setTitle("Timer");
 		frame.setSize(frameWidth, frameHeight);
