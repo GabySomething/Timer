@@ -41,6 +41,7 @@ public class Main {
 		 * @author Gabriel Soto Ramos
 		 * @author Jose Tua Colon
 		 * @author Mario Rodriguez
+		 * @author Bernardo Jr. Sein Acevedo
 		 */
 		@Override
 		protected void paintComponent(Graphics g) {
