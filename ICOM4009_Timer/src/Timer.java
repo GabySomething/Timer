@@ -44,7 +44,7 @@ public class Timer {
 		}
 		return time;
 	}
-	
+
 	/**
 	 * Gets current seconds
 	 * 
@@ -52,7 +52,7 @@ public class Timer {
 	 * @return int: Current seconds
 	 */
 	public int getSeconds() {
-		return (int) Math.floor(this.getMillis()/1000)%60;
+		return (int) Math.floor(this.getMillis() / 1000) % 60;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class Timer {
 	 * @return int: Current minutes
 	 */
 	public int getMinutes() {
-		return (int) Math.floor(this.getSeconds()/60)%60;
+		return (int) Math.floor(this.getSeconds() / 60) % 60;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class Timer {
 	 * @return int: Current hours
 	 */
 	public int getHours() {
-		return (int) Math.floor(this.getMinutes()/60)%24;
+		return (int) Math.floor(this.getMinutes() / 60) % 24;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Timer {
 		return number;
 
 	}
-	
+
 	/**
 	 * Updates the timer
 	 * 
