@@ -14,8 +14,8 @@ This is a simple timer made in Java.
      ```java
      milliseconds = System.currentTimeMillis() - t; //t = start time
      ```
-  - Attention: Using this branch in a Windows computer may output wrong values in the milliseconds when multiple instances of the program are running at the same time; as the system time for some reason changes randomly between applications.
-- Master (Default):
+  - **Attention**: Using this branch in a Windows computer may output wrong values in the milliseconds when multiple instances of the program are running at the same time; as the system time for some reason changes randomly between applications.
+- Master (**Default**):
   - It is currently the same as the Threaded branch.
 
 ## Usage
