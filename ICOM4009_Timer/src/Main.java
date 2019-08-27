@@ -22,8 +22,8 @@ public class Main {
 		private Timer timer = null;
 		private Font bigFont = new Font("Arial", Font.BOLD, 30);
 		private Font smallFont = new Font("Arial", Font.BOLD, 14);
-		private JButton pause_b;
-		private JButton reset_b;
+		private JButton pause_button;
+		private JButton reset_button;
 		int button_width = 150;
 		int button_height = 50;
 
@@ -33,8 +33,8 @@ public class Main {
 		 * @author Jose Tua Colon
 		 */
 		public Comp(JButton pause, JButton reset, Timer timer) {
-			this.pause_b = pause;
-			this.reset_b = reset;
+			this.pause_button = pause;
+			this.reset_button = reset;
 			this.timer = timer;
 		}
 
@@ -63,9 +63,9 @@ public class Main {
 			g.setColor(Color.WHITE);
 			timer.update();
 			if (timer.isPaused())
-				pause_b.setText("Run");
+				pause_button.setText("Run");
 			else
-				pause_b.setText("Pause");
+				pause_button.setText("Pause");
 			g.setFont(bigFont);
 			timer_text = timer.getTimer();
 
@@ -75,9 +75,9 @@ public class Main {
 			g.drawString(timer_text, (int) (frame_width / 2.0 - timer_half_width),
 					(int) (frame_height / 2.0 + text_half_height));
 
-			pause_b.setBounds((int) (frame_width / 2.0 - timer_half_width) - button_width / 2,
+			pause_button.setBounds((int) (frame_width / 2.0 - timer_half_width) - button_width / 2,
 					(int) (frame_height / 2.0 + text_half_height) + 30, button_width, button_height);
-			reset_b.setBounds((int) (frame_width / 2.0 + timer_half_width) - button_width / 2,
+			reset_button.setBounds((int) (frame_width / 2.0 + timer_half_width) - button_width / 2,
 					(int) (frame_height / 2.0 + text_half_height) + 30, button_width, button_height);
 
 			int number_spacing = g.getFontMetrics().stringWidth("0");
@@ -86,33 +86,33 @@ public class Main {
 			int blank_spacing = g.getFontMetrics().stringWidth(" : ");
 
 			g.setFont(smallFont);
-			String tHours = "Hrs";
-			String tMinutes = "Mins";
-			String tSeconds = "Secs";
-			String tMilliseconds = "Millis";
-			int wtHours = g.getFontMetrics().stringWidth(tHours);
-			int wtMinutes = g.getFontMetrics().stringWidth(tMinutes);
-			int wtSeconds = g.getFontMetrics().stringWidth(tSeconds);
-			int wtMilliseconds = g.getFontMetrics().stringWidth(tMilliseconds);
+			String text_Hours = "Hrs";
+			String text_Mins = "Mins";
+			String text_Secs = "Secs";
+			String text_Millis = "Millis";
+			int width_text_Hours = g.getFontMetrics().stringWidth(text_Hours);
+			int width_text_Mins = g.getFontMetrics().stringWidth(text_Mins);
+			int width_text_Secs = g.getFontMetrics().stringWidth(text_Secs);
+			int width_text_Millis = g.getFontMetrics().stringWidth(text_Millis);
 
-			g.drawString(tHours, (int) ((frame_width + number_spacing - wtHours) / 2 - timer_half_width),
+			g.drawString(text_Hours, (int) ((frame_width + number_spacing - width_text_Hours) / 2 - timer_half_width),
 					(int) (frame_height / 2 - text_half_height));
-			g.drawString(tMinutes,
-					(int) ((frame_width - wtMinutes + wtHours) / 2 - timer_half_width + blank_spacing + number_spacing),
+			g.drawString(text_Mins,
+					(int) ((frame_width - width_text_Mins + width_text_Hours) / 2 - timer_half_width + blank_spacing + number_spacing),
 					(int) (frame_height / 2 - text_half_height));
-			g.drawString(tSeconds, (int) ((frame_width - wtSeconds + wtHours + wtMinutes) / 2 - timer_half_width
+			g.drawString(text_Secs, (int) ((frame_width - width_text_Secs + width_text_Hours + width_text_Mins) / 2 - timer_half_width
 					+ blank_spacing + 2 * number_spacing + 10), (int) (frame_height / 2 - text_half_height));
-			g.drawString(tMilliseconds,
-					(int) ((frame_width / 2 + timer_half_width - wtMilliseconds / 2 - milli_spacing / 2)),
+			g.drawString(text_Millis,
+					(int) ((frame_width / 2 + timer_half_width - width_text_Millis / 2 - milli_spacing / 2)),
 					(int) (frame_height / 2 - text_half_height));
 
-			int n = 9;
-			int w = 20, h = frame_height / n;
-			int x = frame_width - w;
+			int number_boxes = 9;
+			int box_width = 20, box_height = frame_height / number_boxes;
+			int x = frame_width - box_width;
 
-			for (int i = 0; i < timer.getSeconds() % (n + 1); i++) {
+			for (int i = 0; i < timer.getSeconds() % (number_boxes + 1); i++) {
 
-				int y = frame_height - (i + 1) * h;
+				int y = frame_height - (i + 1) * box_height;
 				if (i >= 6) {
 					g.setColor(new Color(255-(i-6)*(255/3), 0, 0));
 				} else if (i >= 3) {
@@ -121,9 +121,9 @@ public class Main {
 					g.setColor(new Color(i*(255/3), 255, 0));
 
 				}
-				g.fillRect(x, y, w, h);
+				g.fillRect(x, y, box_width, box_height);
 				g2.setPaint(bkgColor);
-				g2.drawRect(x, y, w, h);
+				g2.drawRect(x, y, box_width, box_height);
 
 			}
 
@@ -135,12 +135,12 @@ public class Main {
 	 * @author Gabriel Soto Ramos
 	 */
 	public static void main(String[] args) {
-		int frameWidth = 500, frameHeight = 300;
+		int frameWidth = 500, frameHeight = 300, refresh_speed = 15; //refresh_speed in milliseconds
 		JFrame frame = new JFrame();
 		frame.setResizable(false);
 		JButton pause_button = new JButton();
 		JButton reset_button = new JButton();
-		Timer timer = new Timer();
+		Timer timer = new Timer(refresh_speed);
 		JComponent comp = new Comp(pause_button, reset_button, timer);
 
 		pause_button.addActionListener(new AbstractAction() {
@@ -182,7 +182,7 @@ public class Main {
 		while (true) {
 			frame.repaint();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(refresh_speed+refresh_speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

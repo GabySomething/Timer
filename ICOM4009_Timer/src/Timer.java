@@ -7,10 +7,8 @@
  */
 public class Timer {
 
-	private long t = System.currentTimeMillis();
-	private long pT = 0;
-	private long pause_time = 0;
-	private String timer = "";
+	private String timer = "00 : 00 : 00 : 000";
+	private int thread_speed = 15;
 	private int mins = 0;
 	private long ms = 0;
 	private int s = 0;
@@ -18,14 +16,22 @@ public class Timer {
 	private boolean pause = true;
 
 	/**
+	 * Constructor for the timer
+	 * 
+	 * @author Gabriel Soto Ramos
+	 * @param thread_speed The speed the current thread is refreshing/running in milliseconds
+	 */
+	public Timer(int thread_speed) {
+		this.thread_speed = thread_speed;
+	}
+	
+	/**
 	 * Resets the timer back to 0
 	 * 
 	 * @author Gabriel Soto Ramos
 	 */
 	public void reset() {
-		t = System.currentTimeMillis();
-		pT = 0;
-		pause_time = 0;
+		ms = 0;
 	}
 
 	/**
@@ -35,14 +41,7 @@ public class Timer {
 	 * @return long: Current milliseconds
 	 */
 	public long getMillis() {
-		if (pause)
-			pause_time = System.currentTimeMillis() - pT;
-		long time = System.currentTimeMillis() - pause_time - t;
-		if (time <= 0) {
-			time = 0;
-			reset();
-		}
-		return time;
+		return ms;
 	}
 
 	/**
@@ -84,16 +83,11 @@ public class Timer {
 	 *            and vice versa
 	 */
 	public void pause() {
-		if (!pause) {
-			pause = true;
-			pT = System.currentTimeMillis();
-		} else {
-			pause = false;
-		}
+		pause = !pause;
 	}
 
 	/**
-	 * Converts an int to a strings and adds a number of zeroes before it
+	 * Converts an int to a string and adds a number of zeroes before it
 	 * 
 	 * @author Gabriel Soto Ramos
 	 * @param n
@@ -121,17 +115,17 @@ public class Timer {
 	 * @author Gabriel Soto Ramos
 	 */
 	public void update() {
-		ms = getMillis();
+		if(!pause)
+			ms+=this.thread_speed;
 		s = (int) Math.floor(ms / 1000.0);
 		mins = (int) Math.floor(s / 60.0);
 		hrs = (int) Math.floor(mins / 60.0);
 
-		ms = ms % 1000;
 		s = s % 60;
 		mins = mins % 60;
 		hrs = hrs % 24;
 
-		String milliseconds = fillWithZeroes((int) ms, 3);
+		String milliseconds = fillWithZeroes((int) ms%1000, 3);
 		String secs = fillWithZeroes(s, 2);
 		String minutes = fillWithZeroes(mins, 2);
 		String hours = fillWithZeroes(hrs, 2);
