@@ -1,6 +1,6 @@
 # Timer
 
-This is a simple timer made in java
+This is a simple timer made in Java.
 
 ## Branch explanations
 
